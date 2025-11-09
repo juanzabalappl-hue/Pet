@@ -38,8 +38,23 @@ export default function Cart({ carrito, setCarrito }) {
     <section className="carrito-contenedor">
       <h2 className="titulo-principal">Tu carrito</h2>
 
-      {/* 🔹 Botón para volver */}
-      <Link to="/" className="boton-volver">
+      {/* 🔹 Botón para volver a la tienda */}
+      <Link
+        to="/"
+        style={{
+          display: "inline-block",
+          backgroundColor: "#4b33a8",
+          color: "#fff",
+          padding: "0.6rem 1.2rem",
+          borderRadius: "0.8rem",
+          textDecoration: "none",
+          fontWeight: "500",
+          marginBottom: "1.5rem",
+          transition: "background 0.3s",
+        }}
+        onMouseEnter={(e) => (e.target.style.background = "#37248f")}
+        onMouseLeave={(e) => (e.target.style.background = "#4b33a8")}
+      >
         ← Volver a la tienda
       </Link>
 
@@ -50,12 +65,19 @@ export default function Cart({ carrito, setCarrito }) {
           <div className="carrito-productos">
             {carrito.map((prod) => (
               <div key={prod.id} className="carrito-producto">
-                <img src={prod.imagen} alt={prod.titulo} className="carrito-producto-imagen" />
+                <img
+                  src={prod.imagen}
+                  alt={prod.titulo}
+                  className="carrito-producto-imagen"
+                />
                 <h3>{prod.titulo}</h3>
                 <p>Cantidad: {prod.cantidad}</p>
                 <p>Precio c/u: ${prod.precioFinal || prod.precio}</p>
                 <p>Subtotal: ${(prod.precioFinal || prod.precio) * prod.cantidad}</p>
-                <button className="carrito-producto-eliminar" onClick={() => eliminarProducto(prod.id)}>
+                <button
+                  className="carrito-producto-eliminar"
+                  onClick={() => eliminarProducto(prod.id)}
+                >
                   Eliminar
                 </button>
               </div>
@@ -68,6 +90,7 @@ export default function Cart({ carrito, setCarrito }) {
                 Vaciar carrito
               </button>
             </div>
+
             <div className="carrito-acciones-derecha">
               <div className="carrito-acciones-total">
                 <p>Subtotal:</p>

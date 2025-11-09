@@ -2,15 +2,25 @@ import React from "react";
 import ProductCard from "./ProductCard";
 
 export default function ProductList({ productos, agregarAlCarrito }) {
+  if (!Array.isArray(productos)) {
+    return <p>Cargando productos...</p>;
+  }
+
   if (productos.length === 0) {
-    return <p style={{ color: "#4b33a8", fontWeight: 600 }}>No se encontraron productos.</p>;
+    return <p>No hay productos disponibles.</p>;
   }
 
   return (
     <div className="contenedor-productos">
-      {productos.map((prod) => (
-        <ProductCard key={prod.id} producto={prod} agregarAlCarrito={agregarAlCarrito} />
+      {productos.map((producto) => (
+        <ProductCard
+          key={producto.id}
+          producto={producto}
+          agregarAlCarrito={agregarAlCarrito}
+        />
       ))}
     </div>
   );
 }
+
+

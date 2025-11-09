@@ -9,9 +9,14 @@ import Cart from "./components/Cart";
 import "./styles.css";
 
 function App() {
+  // Estado principal de productos
   const [productos, setProductos] = useState(productosData);
+  const [productosOriginales] = useState(productosData);
+
+  // Estado del carrito
   const [carrito, setCarrito] = useState(() => JSON.parse(localStorage.getItem("carrito")) || []);
 
+  // Función para agregar productos al carrito
   const agregarAlCarrito = (producto) => {
     setCarrito((prev) => {
       const existe = prev.find((p) => p.id === producto.id);
@@ -20,7 +25,10 @@ function App() {
           p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
         );
       }
-      return [...prev, { ...producto, cantidad: 1, precioFinal: Math.round(producto.precio * 0.9) }];
+      return [
+        ...prev,
+        { ...producto, cantidad: 1, precioFinal: Math.round(producto.precio * 0.9) },
+      ];
     });
   };
 
@@ -35,9 +43,18 @@ function App() {
               path="/"
               element={
                 <>
-                  <SearchBar productos={productosData} setProductos={setProductos} />
+                  {/* 🔍 Barra de búsqueda en tiempo real */}
+                  <SearchBar
+                    productos={productos}
+                    setProductos={setProductos}
+                    productosOriginales={productosOriginales}
+                  />
+
                   <h2 className="titulo-principal">Todos los productos</h2>
+
                   <ProductList productos={productos} agregarAlCarrito={agregarAlCarrito} />
+
+                  {/* 🔗 Enlace al carrito */}
                   <Link
                     to="/carrito"
                     style={{
@@ -56,6 +73,7 @@ function App() {
               }
             />
 
+            {/* 🛒 Página del carrito */}
             <Route path="/carrito" element={<Cart carrito={carrito} setCarrito={setCarrito} />} />
           </Routes>
         </main>
