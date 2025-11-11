@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { Link } from "react-router-dom";
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyAuaWByo3uYzmU3jnhoZAZM1S79o3Uq1Xg",
@@ -11,7 +16,7 @@ const firebaseConfig = {
   storageBucket: "proyecto-petshop-6ea56.appspot.com",
   messagingSenderId: "88005462823",
   appId: "1:88005462823:web:88b9509ed64c2bb01b3702",
-  measurementId: "G-EXDPT7SSM8"
+  measurementId: "G-EXDPT7SSM8",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -43,7 +48,12 @@ export default function Sidebar({ carrito, setProductos, productos }) {
     if (cat === "Todos") {
       setProductos(productos);
     } else {
-      setProductos(productos.filter((p) => p.categoria.id === cat));
+      const categoriaFiltrada = cat.toLowerCase();
+      setProductos(
+        productos.filter(
+          (p) => p.categoria.id.toLowerCase() === categoriaFiltrada
+        )
+      );
     }
   };
 
@@ -57,7 +67,10 @@ export default function Sidebar({ carrito, setProductos, productos }) {
         <ul className="menu">
           {categorias.map((cat) => (
             <li key={cat}>
-              <button className="boton-menu boton-categoria" onClick={() => filtrarCategoria(cat)}>
+              <button
+                className="boton-menu boton-categoria"
+                onClick={() => filtrarCategoria(cat)}
+              >
                 {cat}
               </button>
             </li>
@@ -70,7 +83,6 @@ export default function Sidebar({ carrito, setProductos, productos }) {
               </span>
             </Link>
           </li>
-
         </ul>
       </nav>
 

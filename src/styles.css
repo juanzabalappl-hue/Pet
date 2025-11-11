@@ -146,7 +146,7 @@ main {
 =========================== */
 .contenedor-productos {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 productos por fila */
+    grid-template-columns: repeat(4, 1fr); /* 3 productos por fila */
     gap: 1.5rem;
     justify-items: center;
     width: 100%;
@@ -369,3 +369,17 @@ main {
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
